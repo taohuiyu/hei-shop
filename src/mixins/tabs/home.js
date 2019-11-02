@@ -11,9 +11,7 @@ export default class Home extends wepy.mixin {
   methods = {};
   //获取轮播图的数据
   async getSwiperData() {
-    const { data } = await wepy.request({
-      url: 'https://uinav.com/api/public/v1/home/swiperdata'
-    });
+    const { data } = await wepy.get('/home/swiperdata')
     // console.log(data)
     // 如果状态码不等于200，就不保存在本地
     if (data.meta.status !== 200) {
@@ -27,14 +25,12 @@ export default class Home extends wepy.mixin {
   }
   //获取分类的数据
   async getCateData() {
-    const { data } = await wepy.request({
-      url: 'https://uinav.com/api/public/v1/home/catitems'
-    });
+    const { data } = await wepy.get('/home/catitems')
     // console.log(data)
     if (data.meta.status !== 200) {
       return wepy.baseToast('获取数据失败')
     }
-    wepy.baseToast('获取数据成功','success')
+    // wepy.baseToast('获取数据成功','success')
     this.cateData = data.message;
     this.$apply();
   }
