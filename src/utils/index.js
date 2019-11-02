@@ -22,6 +22,6 @@ wepy.post = function(path,data={}){
     return wepy.request({
         url:baseUrl+path,
         data,
-        methos:'post'
+        method:'post'
     })
 }

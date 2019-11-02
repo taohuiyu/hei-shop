@@ -3,7 +3,8 @@ import wepy from 'wepy'
 export default class Home extends wepy.mixin {
   data = {
     swiperData: [], //轮播图数据
-    cateData: [] //分类数据
+    cateData: [] ,//分类数据
+    floorData:[]//楼层
   };
 
   config = {};
@@ -34,9 +35,19 @@ export default class Home extends wepy.mixin {
     this.cateData = data.message;
     this.$apply();
   }
+  //获取楼层数据
+  async getFlooData(){
+      const {data} = await wepy.get("/home/floordata")
+      if(data.meta.status !==200){
+        return wepy.baseToast('获取楼层数据失败')
+      }
+      this.floorData = data.message
+      this.$apply()
+  }
   //页面一刷新获取数据
   onLoad() {
     this.getSwiperData(); //轮播图
     this.getCateData(); //分类
+    this.getFlooData()//楼层
   }
 }

@@ -4,7 +4,7 @@
         <swiper indicator-dots circular>
             <swiper-item wx:for="{{swiperData}}" wx:key="index">
                 <navigator url="{{ item.navigator_url }}">
-                    <image src="{{item.image_src}}">
+                    <image src="{{item.image_src}}"></image>
                 </navigator>
             </swiper-item>
         </swiper>
@@ -17,8 +17,18 @@
                 wx:for="{{ cateData}}"
                 wx:key="{{index}}"
             >
-                <image src="{{item.image_src}}">
+                <image src="{{item.image_src}}"></image>
             </navigator>
+        </view>
+        <!-- 楼层 -->
+        <view class="floor_box">
+             <view class="floor_item" wx:for="{{floorData}}" wx:key="index">
+                 <!-- 标题 -->
+                <image class="tit" src="{{item.floor_title.image_src}}"></image>
+                <view class="img_box">
+                    <image wx:for="{{item.product_list}}" src="{{item.image_src}}"></image>
+                </view>
+             </view> 
         </view>
     </view>
 </template>
@@ -53,6 +63,25 @@ export default class Home extends wepy.page {
         height: 140rpx;
       }
     }
+  }
+  .floor_box{
+      .floor_item{
+          .tit{
+              height: 50rpx;
+              width: 640rpx;
+          }
+          .img_box{
+              image{
+                  width: 90px;
+                  height: 190rpx;
+                  float: left;
+                  margin: 8rpx;
+              }
+              image:nth-child(1){
+                  height: 390rpx;
+              }
+          }
+      }
   }
 }
 </style>
