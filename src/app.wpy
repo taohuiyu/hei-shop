@@ -2,32 +2,69 @@
 </style>
 
 <script>
-import wepy from 'wepy'
-import 'wepy-async-function'
-
+import wepy from 'wepy';
+import 'wepy-async-function';
 
 export default class extends wepy.app {
   config = {
     pages: [
-      'pages/index'
+      'pages/tabs/home',
+      'pages/tabs/cates',
+      'pages/tabs/search',
+      'pages/tabs/carts',
+      'pages/tabs/my',
+      'pages/goods_detail/index'
     ],
     window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      backgroundTextStyle: 'dark',
+      navigationBarBackgroundColor: '#D81E06',
+      navigationBarTitleText: '黑马优购',
+      navigationBarTextStyle: 'white'
+    },
+    tabBar: {
+      list: [
+        {
+          pagePath: 'pages/tabs/home',
+          text: '首页',
+          iconPath: './assets/icons/home.png',
+          selectedIconPath: './assets/icons/home-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/cates',
+          text: '分类',
+          iconPath: './assets/icons/cates.png',
+          selectedIconPath: './assets/icons/cates-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/search',
+          text: '搜索',
+          iconPath: './assets/icons/search.png',
+          selectedIconPath: './assets/icons/search-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/carts',
+          text: '购物车',
+          iconPath: './assets/icons/cart.png',
+          selectedIconPath: './assets/icons/cart-active.png'
+        },
+        {
+          pagePath: 'pages/tabs/my',
+          text: '我的',
+          iconPath: './assets/icons/my.png',
+          selectedIconPath: './assets/icons/my-active.png'
+        }
+      ]
     }
-  }
+  };
 
   globalData = {
     userInfo: null
-  }
+  };
 
-  constructor () {
-    super()
-    this.use('requestfix')
+  constructor() {
+    super();
+    this.use('requestfix');
+    this.use('promisify')
   }
-
-  
 }
 </script>
