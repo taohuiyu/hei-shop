@@ -1,66 +1,58 @@
 <template>
-<view class="home"> 
-    <swiper indicator-dots circular>
-        <swiper-item wx:for="{{swiperData}}" wx:key="index">
-            <navigator url="{{ item.navigator_url }}">
-                 <image src="{{item.image_src}}"></image>
+    <view class="home">
+        <!-- 轮播图 -->
+        <swiper indicator-dots circular>
+            <swiper-item wx:for="{{swiperData}}" wx:key="index">
+                <navigator url="{{ item.navigator_url }}">
+                    <image src="{{item.image_src}}">
+                </navigator>
+            </swiper-item>
+        </swiper>
+        <!-- 分类图片 -->
+        <view class="cate_box">
+            <navigator
+                hover-class="none"
+                url="/pages/tabs/cates"
+                open-type="{{ item.open_type }}"
+                wx:for="{{ cateData}}"
+                wx:key="{{index}}"
+            >
+                <image src="{{item.image_src}}">
             </navigator>
-        </swiper-item>
-    </swiper>
-</view>
+        </view>
+    </view>
 </template>
 
 <script>
-
 import wepy from 'wepy'
-
+import mixinHome from '../../mixins/tabs/home.js'
+import '../../utils/index.js'
 export default class Home extends wepy.page {
-    data = {
-        swiperData:[]
-    }
-
-    config = {
-    }
-
-    methods = {
-
-    }
-    //获取轮播图的数据
-    async getSwiperData(){
-        const {data} =await wepy.request({
-            url:'https://uinav.com/api/public/v1/home/swiperdata'
-        })
-        console.log(data)
-        // 如果状态码不等于200，就不保存在本地
-        if(data.meta.status!==200){
-            return wepy.showToast({
-                title:"获取数据失败",
-                icon:'none'
-            })
-        }
-        //如果状态码等于200，就获取数据
-        this.swiperData =data.message
-        //异步赋值就必须使用$apply
-        this.$apply()
-    }
-    //页面一刷新获取数据
-    onLoad(){
-        this.getSwiperData()
-    }
+  mixins = [mixinHome]
 }
-
 </script>
 
 <style lang='less'>
-.home{
-swiper{
-  height:350rpx;
-  navigator,
-  image{
-    width: 100%;
-    height: 100%;
+.home {
+  swiper {
+    height: 350rpx;
+    navigator,
+    image {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .cate_box {
+    display: flex;
+    padding: 40rpx 0rpx;
+    navigator {
+      width: 25%;
+      text-align: center;
+      image {
+        width: 128rpx;
+        height: 140rpx;
+      }
+    }
   }
 }
-}
-
 </style>
