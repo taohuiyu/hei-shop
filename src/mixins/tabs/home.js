@@ -9,17 +9,26 @@ export default class Home extends wepy.mixin {
 
   config = {};
 
-  methods = {};
+  methods = {
+    //点击楼层图片跳转页面获取
+    goGoodsDetail(url) {
+      console.log(url)
+      // console.log("跳转到商品列表页")
+      wepy.navigateTo({
+        url
+      })
+    }
+  }
   //获取轮播图的数据
   async getSwiperData() {
     const { data } = await wepy.get('/home/swiperdata')
-    // console.log(data)
+    console.log(data)
     // 如果状态码不等于200，就不保存在本地
     if (data.meta.status !== 200) {
       return wepy.baseToast('获取数据失败')
     }
     //如果状态码等于200，就获取数据
-    wepy.baseToast('获取数据成功','success')
+    // wepy.baseToast('获取数据成功','success')
     this.swiperData = data.message;
     //异步赋值就必须使用$apply
     this.$apply();

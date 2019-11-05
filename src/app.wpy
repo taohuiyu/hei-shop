@@ -4,7 +4,7 @@
 <script>
 import wepy from 'wepy';
 import 'wepy-async-function';
-import './utils/index.js'
+
 export default class extends wepy.app {
   config = {
     pages: [
@@ -13,8 +13,14 @@ export default class extends wepy.app {
       'pages/tabs/search',
       'pages/tabs/carts',
       'pages/tabs/my',
-      'pages/goods_detail/index'
+      'pages/goods_list/index'
     ],
+    usingComponents: {
+      'van-sidebar': './components/vant/sidebar/index',
+      'van-sidebar-item': './components/vant/sidebar-item/index',
+      'van-grid': './components/vant/grid/index',
+      'van-grid-item': './components/vant/grid-item/index'
+    },
     window: {
       backgroundTextStyle: 'dark',
       navigationBarBackgroundColor: '#D81E06',
@@ -26,32 +32,32 @@ export default class extends wepy.app {
         {
           pagePath: 'pages/tabs/home',
           text: '首页',
-          iconPath: './assets/icons/home.png',
-          selectedIconPath: './assets/icons/home-active.png'
+          iconPath: 'assets/icons/home.png',
+          selectedIconPath: 'assets/icons/home-active.png'
         },
         {
           pagePath: 'pages/tabs/cates',
           text: '分类',
-          iconPath: './assets/icons/cates.png',
-          selectedIconPath: './assets/icons/cates-active.png'
+          iconPath: 'assets/icons/cates.png',
+          selectedIconPath: 'assets/icons/cates-active.png'
         },
         {
           pagePath: 'pages/tabs/search',
           text: '搜索',
-          iconPath: './assets/icons/search.png',
-          selectedIconPath: './assets/icons/search-active.png'
+          iconPath: 'assets/icons/search.png',
+          selectedIconPath: 'assets/icons/search-active.png'
         },
         {
           pagePath: 'pages/tabs/carts',
           text: '购物车',
-          iconPath: './assets/icons/cart.png',
-          selectedIconPath: './assets/icons/cart-active.png'
+          iconPath: 'assets/icons/cart.png',
+          selectedIconPath: 'assets/icons/cart-active.png'
         },
         {
           pagePath: 'pages/tabs/my',
           text: '我的',
-          iconPath: './assets/icons/my.png',
-          selectedIconPath: './assets/icons/my-active.png'
+          iconPath: 'assets/icons/my.png',
+          selectedIconPath: 'assets/icons/my-active.png'
         }
       ]
     }
@@ -64,7 +70,35 @@ export default class extends wepy.app {
   constructor() {
     super();
     this.use('requestfix');
-    this.use('promisify')
+    this.use('promisify');
+    // 拦截request请求
+    this.intercept('request', {
+      // 发出请求时的回调函数
+      config(p) {
+        wepy.showLoading({
+          title: '正在加载中...'
+        });
+        // 必须返回OBJECT参数对象，否则无法发送请求到服务端
+        return p;
+      },
+
+      // 请求成功后的回调函数
+      success(p) {
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p;
+      },
+
+      //请求失败后的回调函数
+      fail(p) {
+        // 必须返回响应数据对象，否则后续无法对响应数据进行处理
+        return p;
+      },
+
+      // 请求完成时的回调函数(请求成功或失败都会被执行)
+      complete(p) {
+        wepy.hideLoading();
+      }
+    });
   }
 }
 </script>
