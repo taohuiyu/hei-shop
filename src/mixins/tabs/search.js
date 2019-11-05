@@ -10,6 +10,12 @@ export default class Search extends wepy.mixin {
     }
 
     methods = {
+        // tapHandle(id){
+        //     wepy.navigateTo({
+        //         url:'/pages/goods_detail/index?goods_id='+id
+        //     })
+            
+        // },
        async onChange(e){
             //获取输入框最新中值
             // console.log(222)

@@ -9,9 +9,14 @@
             bind:search="onSearch"
             bind:cancel="onCancel"
         />
-        <!-- 搜索列表 -->
+        <!-- 搜索列表  @tap="tapHandle({{item.goods_id}})"-->
         <van-cell-group>
-            <van-cell wx:for="{{suggestList}}" wx:key="{{index}}" title="{{item.goods_name}}"/>
+            <van-cell
+                url='/pages/goods_detail/index?goods_id={{item.goods_id}}'
+                wx:for="{{suggestList}}"
+                wx:key="{{index}}"
+                title="{{item.goods_name}}"
+            />
         </van-cell-group>
     </view>
 </template>
