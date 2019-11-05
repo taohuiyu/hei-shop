@@ -12,12 +12,22 @@
         <!-- 搜索列表  @tap="tapHandle({{item.goods_id}})"-->
         <van-cell-group>
             <van-cell
-                url='/pages/goods_detail/index?goods_id={{item.goods_id}}'
+                url="/pages/goods_detail/index?goods_id={{item.goods_id}}"
                 wx:for="{{suggestList}}"
                 wx:key="{{index}}"
                 title="{{item.goods_name}}"
             />
         </van-cell-group>
+        <!-- 搜索历史 -->
+        <view class="history">
+            <view class="tit">
+                <text class="left">搜索历史</text>
+                <van-icon name="delete"/>
+            </view>
+            <view class="tag_box">
+                <van-tag size="medium">标签</van-tag>
+            </view>
+        </view>
     </view>
 </template>
 
@@ -30,4 +40,19 @@ export default class Home extends wepy.page {
 </script>
 
 <style lang='less'>
+.history{
+  padding: 10rpx 20rpx;
+  .tit{
+    display: flex;
+    justify-content: space-between;
+    .left{
+      font-size: 30rpx;
+    }
+  }
+  .tag_box {
+    .van-tag{
+      margin-right:0 20rpx 10rpx 0;
+    }
+  }
+}
 </style>

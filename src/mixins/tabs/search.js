@@ -3,7 +3,8 @@ import wepy from 'wepy'
 export default class Search extends wepy.mixin {
     data = {
         value:'',
-        suggestList:[]
+        suggestList:[],
+        historyList:[]//搜索记录
     }
 
     config = {
@@ -19,6 +20,12 @@ export default class Search extends wepy.mixin {
         //敲搜索按钮或回车时候触发
         onSearch(){
             if(this.value.trim() == '') return this.suggestList = []
+            //搜索历史保存到本地 前十条进行存储
+            if(this.historyList.indexOf(this.value) === -1){
+                this.historyList.unshift(this.value)
+            }
+            this.historyList.unshift(this.value)
+            wepy.setStorageSync('historyList',this.historyList)
             wepy.navigateTo({
               url: '/pages/goods_list/index?query='+this.value
             })
@@ -40,6 +47,9 @@ export default class Search extends wepy.mixin {
             this.suggestList =data.message
             this.$apply()
         }
+    }
+    onLoad(){
+        this.historyList = wepy.getStorageSync('historyList') || []
     }
 }
 
