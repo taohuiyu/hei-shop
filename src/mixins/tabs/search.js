@@ -16,6 +16,14 @@ export default class Search extends wepy.mixin {
         //     })
             
         // },
+        //敲搜索按钮或回车时候触发
+        onSearch(){
+            if(this.value.trim() == '') return this.suggestList = []
+            wepy.navigateTo({
+              url: '/pages/goods_list/index?query='+this.value
+            })
+        },
+        //输入框发生变化
        async onChange(e){
             //获取输入框最新中值
             // console.log(222)
